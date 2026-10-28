@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://facebank.pr/sitemap-index.xml
+Sitemap: https://facebank.pr/sitemap_index.xml

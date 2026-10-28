@@ -1,0 +1,136 @@
+---
+// Plantilla común: <head> con SEO (migrado de Yoast), integraciones del sitio
+// original (GTM, chat agentbot, accesibilidad accessiBe), cabecera y pie.
+import { Font } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import LeaveNotice from '../components/LeaveNotice.astro';
+import '../styles/global.css';
+import '../styles/layout.css';
+import '../styles/elements.css';
+import '../styles/components.css';
+
+interface Props {
+  lang: 'es' | 'en';
+  route: string;
+  template: 'full' | 'default' | 'portfolio';
+  postType: string;
+  titleBar: string | null;
+  /** Padding vertical [arriba, abajo] del área principal, medido en el sitio original. */
+  mainPad?: [string, string];
+  title: string;
+  description?: string | null;
+  robots?: string | null;
+  canonical?: string | null;
+  ogType?: string | null;
+  ogTitle?: string | null;
+  ogDescription?: string | null;
+  ogImage?: string | null;
+  ogImageWidth?: string | null;
+  ogImageHeight?: string | null;
+  ogImageType?: string | null;
+  modified?: string | null;
+  twitterLabel?: string | null;
+  twitterData?: string | null;
+  alternates?: Record<string, string>;
+  schema?: unknown;
+}
+
+const p = Astro.props;
+const site = 'https://facebank.pr';
+const alternates = p.alternates ?? {};
+const altAbs = p.lang === 'es' ? alternates['en-US'] : alternates['es-ES'];
+const altUrl = altAbs ? altAbs.replace(site, '') || '/' : (p.lang === 'es' ? '/en/' : '/');
+const ogLocale = p.lang === 'en' ? 'en_US' : 'es_ES';
+const dataLayer = { pagePostType: p.postType, pagePostType2: p.postType === 'frontpage' ? 'single-page' : `single-${p.postType}` };
+const skip = p.lang === 'en' ? 'Skip to content' : 'Saltar al contenido';
+---
+<!doctype html>
+<html lang={p.lang === 'en' ? 'en-US' : 'es-ES'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{p.title}</title>
+    {p.description && <meta name="description" content={p.description} />}
+    {p.robots && <meta name="robots" content={p.robots} />}
+    {p.canonical && <link rel="canonical" href={p.canonical} />}
+    {Object.entries(alternates).map(([hl, href]) => <link rel="alternate" hreflang={hl} href={href} />)}
+    <meta property="og:locale" content={ogLocale} />
+    {p.ogType && <meta property="og:type" content={p.ogType} />}
+    <meta property="og:title" content={p.ogTitle ?? p.title} />
+    {p.ogDescription && <meta property="og:description" content={p.ogDescription} />}
+    {p.canonical && <meta property="og:url" content={p.canonical} />}
+    <meta property="og:site_name" content="Facebank" />
+    <meta property="article:publisher" content="https://www.facebook.com/facebankinternationalcorp" />
+    {p.modified && <meta property="article:modified_time" content={p.modified} />}
+    {p.ogImage && <meta property="og:image" content={p.ogImage} />}
+    {p.ogImageWidth && <meta property="og:image:width" content={p.ogImageWidth} />}
+    {p.ogImageHeight && <meta property="og:image:height" content={p.ogImageHeight} />}
+    {p.ogImageType && <meta property="og:image:type" content={p.ogImageType} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    {p.twitterLabel && <meta name="twitter:label1" content={p.twitterLabel} />}
+    {p.twitterData && <meta name="twitter:data1" content={p.twitterData} />}
+    <link rel="icon" href="/wp-content/uploads/2023/02/Favicon-fb-e1677532678765.png" type="image/png" />
+    {p.schema && <script type="application/ld+json" set:html={JSON.stringify(p.schema)} />}
+
+    <Font cssVariable="--font-manrope" preload />
+    <Font cssVariable="--font-open-sans" />
+
+    <script is:inline>document.documentElement.classList.add('js');</script>
+
+    <!-- Google Tag Manager -->
+    <script is:inline define:vars={{ dataLayer }}>
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(dataLayer);
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-WDMNF34');
+    </script>
+    <!-- Chat (agentbot) -->
+    <script is:inline src="https://cdn.agentbot.net/core/4bac660c2f507816d6e262c1ca89d96f.js" charset="UTF-8" async></script>
+  </head>
+  <body class:list={[`tpl-${p.template}`, `lang-${p.lang}`]}>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDMNF34" height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
+    <a class="visually-hidden skip-link" href="#content">{skip}</a>
+
+    <Header lang={p.lang} route={p.route} altUrl={altUrl} />
+
+    {p.titleBar && (
+      <section class="ptb">
+        <div class="ptb__row"><h1 class="ptb__title">{p.titleBar}</h1></div>
+      </section>
+    )}
+
+    <main id="content" class:list={['main', `main--${p.template}`]} style={`--main-pt:${p.mainPad?.[0] ?? '0px'};--main-pb:${p.mainPad?.[1] ?? '60px'}`}>
+      <div class="main__row">
+        <slot />
+      </div>
+    </main>
+
+    <Footer lang={p.lang} />
+    <LeaveNotice lang={p.lang} />
+
+    <script>
+      import '../scripts/site.ts';
+    </script>
+    <!-- Widget de accesibilidad (accessiBe), misma configuración que el sitio original -->
+    <script is:inline>
+      (function () {
+        var s = document.createElement('script'), h = document.querySelector('head') || document.body;
+        s.src = 'https://acsbapp.com/apps/app/dist/js/app.js'; s.async = true;
+        s.onload = function () {
+          acsbJS.init({
+            statementLink: '', footerHtml: '', hideMobile: false, hideTrigger: false, disableBgProcess: false,
+            language: 'en', position: 'left', leadColor: '#01a4a8', triggerColor: '#51a1a8', triggerRadius: '50%',
+            triggerPositionX: 'left', triggerPositionY: 'bottom', triggerIcon: 'people', triggerSize: 'medium',
+            triggerOffsetX: 20, triggerOffsetY: 20,
+            mobile: { triggerSize: 'small', triggerPositionX: 'right', triggerPositionY: 'bottom', triggerOffsetX: 10, triggerOffsetY: 10, triggerRadius: '50%' }
+          });
+        };
+        h.appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

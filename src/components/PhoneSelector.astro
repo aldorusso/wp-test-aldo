@@ -1,0 +1,53 @@
+---
+// Selector de país → muestra el teléfono de atención correspondiente.
+// Los textos se mantienen como en el sitio original (en español en ambos idiomas).
+import { phones } from '../data/phones';
+
+interface Props { lang: 'es' | 'en' }
+const { lang } = Astro.props;
+const id = `pais-${lang}`;
+---
+<div class="phone">
+  <label class="visually-hidden" for={id}>{lang === 'en' ? 'Country' : 'País'}</label>
+  <select class="phone__select" id={id} data-phone-select>
+    <option value="">Selecciona un país</option>
+    {phones.map((p) => <option value={p.country} data-tel={p.tel} data-display={p.display}>{p.country}</option>)}
+  </select>
+  <p class="phone__result" data-phone-result aria-live="polite"></p>
+</div>
+
+<script>
+  for (const select of document.querySelectorAll<HTMLSelectElement>('[data-phone-select]')) {
+    const out = select.parentElement?.querySelector<HTMLElement>('[data-phone-result]');
+    select.addEventListener('change', () => {
+      if (!out) return;
+      const opt = select.selectedOptions[0];
+      out.textContent = '';
+      if (!opt || !opt.value) return;
+      const a = document.createElement('a');
+      a.href = `tel:${opt.dataset.tel}`;
+      a.textContent = opt.dataset.display ?? '';
+      out.append('Teléfono: ', a);
+    });
+  }
+</script>
+
+<style>
+  /* Columna flex: los márgenes del resultado (vacío al cargar) no colapsan, como en el original. */
+  .phone { display: flex; flex-direction: column; }
+  .phone__select {
+    display: block;
+    width: 100%;
+    height: 56px;
+    padding: 10px;
+    border: 2px solid var(--fb-grey);
+    border-radius: 5px;
+    background: var(--fb-white);
+    color: var(--fb-text);
+    font: inherit;
+    font-size: 16px;
+  }
+  .phone__select:focus { outline: none; border-color: var(--fb-green); }
+  .phone__result { margin: 20px 0 18px; color: #666666; font-size: 18px; line-height: 1.7; }
+  .phone__result:empty { min-height: 0; }
+</style>

@@ -1,0 +1,418 @@
+{
+  "es": [
+    {
+      "label": "Home",
+      "href": "/",
+      "button": false,
+      "modal": null,
+      "children": []
+    },
+    {
+      "label": "Cuentas",
+      "href": "/portfolio-items/cuentas-bancarias/",
+      "button": false,
+      "modal": null,
+      "children": [
+        {
+          "title": "Cuenta Corriente",
+          "titleHref": null,
+          "label": "Corriente",
+          "href": "/portfolio-items/cuentas-bancarias/#corriente",
+          "icon": "money-check-dollar",
+          "external": false
+        },
+        {
+          "title": "Cuenta Para Profesionales",
+          "titleHref": "/portfolio-items/cuentas-bancarias/#profesionales",
+          "label": "Profesionales",
+          "href": "/portfolio-items/cuentas-bancarias/#profesionales",
+          "icon": "user-graduate",
+          "external": false
+        },
+        {
+          "title": "Cuentas Con Beneficiarios",
+          "titleHref": "/portfolio-items/cuentas-bancarias/#beneficiarios",
+          "label": "Con Beneficiarios",
+          "href": "/portfolio-items/cuentas-bancarias/#beneficiarios",
+          "icon": "user-group",
+          "external": false
+        },
+        {
+          "title": "Cuentas Para Menores",
+          "titleHref": "/portfolio-items/cuentas-bancarias/#menores",
+          "label": "Menores",
+          "href": "/portfolio-items/cuentas-bancarias/#menores",
+          "icon": "child",
+          "external": false
+        }
+      ]
+    },
+    {
+      "label": "Créditos",
+      "href": "/portfolio-items/creditos/",
+      "button": false,
+      "modal": null,
+      "children": [
+        {
+          "title": "Tarjeta de Crédito",
+          "titleHref": "/portfolio-items/creditos/#tdc",
+          "label": "Tarjeta de Crédito",
+          "href": "/portfolio-items/creditos/#tdc",
+          "icon": "credit-card",
+          "external": false
+        },
+        {
+          "title": "Crédito Back to Back",
+          "titleHref": "/portfolio-items/creditos/#personales",
+          "label": "Créditos Personales",
+          "href": "/portfolio-items/creditos/#personales",
+          "icon": "handshake",
+          "external": false
+        },
+        {
+          "title": "Créditos Hipotecarios",
+          "titleHref": "/portfolio-items/creditos/#hipotecarios",
+          "label": "Créditos Hipotecarios",
+          "href": "/portfolio-items/creditos/#hipotecarios",
+          "icon": "house",
+          "external": false
+        }
+      ]
+    },
+    {
+      "label": "Garantías",
+      "href": "/portfolio-items/garantias-bancarias/",
+      "button": false,
+      "modal": null,
+      "children": [
+        {
+          "title": "Garantía Compra-Venta",
+          "titleHref": "/portfolio-items/garantias-bancarias/#inmuebles",
+          "label": "Compra-Venta de Bienes",
+          "href": "/portfolio-items/garantias-bancarias/#inmuebles",
+          "icon": "file-signature",
+          "external": false
+        },
+        {
+          "title": "Garantías Bancarias",
+          "titleHref": "/portfolio-items/garantias-bancarias/#garantias",
+          "label": "Garantías Bancarias",
+          "href": "/portfolio-items/garantias-bancarias/#garantias",
+          "icon": "user-lock",
+          "external": false
+        }
+      ]
+    },
+    {
+      "label": "Empresas",
+      "href": "/portfolio-items/empresas/",
+      "button": false,
+      "modal": null,
+      "children": [
+        {
+          "title": "Cuentas Para Empresas",
+          "titleHref": "/portfolio-items/empresas/#cuenta",
+          "label": "Cuenta Para Empresas",
+          "href": "/portfolio-items/empresas/#cuenta",
+          "icon": "building-columns",
+          "external": false
+        },
+        {
+          "title": "Crédito Back to Back",
+          "titleHref": "/portfolio-items/empresas/#credito",
+          "label": "Crédito Back-to-Back",
+          "href": "/portfolio-items/empresas/#credito",
+          "icon": "rotate",
+          "external": false
+        }
+      ]
+    },
+    {
+      "label": "Nosotros",
+      "href": "/nosotros/",
+      "button": false,
+      "modal": null,
+      "children": [
+        {
+          "title": "FHT",
+          "titleHref": "/nosotros/#fht",
+          "label": "Florida Home Trust",
+          "href": "/nosotros/#fht",
+          "icon": "warehouse",
+          "external": false
+        },
+        {
+          "title": "Calificación",
+          "titleHref": "/nosotros/#calificacion",
+          "label": "Calificación de Riesgo",
+          "href": "/nosotros/#calificacion",
+          "icon": "medal",
+          "external": false
+        },
+        {
+          "title": "F.A.Q",
+          "titleHref": "/nosotros/#faq",
+          "label": "Preguntas Frecuentes",
+          "href": "/nosotros/#faq",
+          "icon": "circle-question",
+          "external": false
+        },
+        {
+          "title": "Tarifario",
+          "titleHref": "/nosotros/#tarifas",
+          "label": "Contacto",
+          "href": "#contacto",
+          "icon": "headset",
+          "external": false
+        },
+        {
+          "title": "",
+          "titleHref": null,
+          "label": "Asociados",
+          "href": "https://facebank-asociados.com/es/asociados/login",
+          "icon": "handshake",
+          "external": true
+        }
+      ]
+    },
+    {
+      "label": "Banca Online",
+      "href": null,
+      "button": true,
+      "modal": null,
+      "children": [
+        {
+          "title": "Personas",
+          "titleHref": "https://secureib.facebank.pr/personas/banca-virtual#!/login",
+          "label": "Personas",
+          "href": "https://secureib.facebank.pr/personas/banca-virtual#!/login",
+          "icon": "user",
+          "external": true
+        },
+        {
+          "title": "Empresas",
+          "titleHref": "https://secureib.facebank.pr/empresas/banca-virtual#!/login",
+          "label": "Empresas",
+          "href": "https://secureib.facebank.pr/empresas/banca-virtual#!/login",
+          "icon": "building",
+          "external": true
+        }
+      ]
+    },
+    {
+      "label": "Abre tu Cuenta",
+      "href": null,
+      "button": true,
+      "modal": "cuenta",
+      "children": []
+    }
+  ],
+  "en": [
+    {
+      "label": "Home",
+      "href": "/en/",
+      "button": false,
+      "modal": null,
+      "children": []
+    },
+    {
+      "label": "Accounts",
+      "href": "/en/portfolio-items/cuentas-bancarias/",
+      "button": false,
+      "modal": null,
+      "children": [
+        {
+          "title": "Checking Account",
+          "titleHref": null,
+          "label": "Checking Account",
+          "href": "/en/portfolio-items/cuentas-bancarias/#corriente",
+          "icon": "money-check-dollar",
+          "external": false
+        },
+        {
+          "title": "For Professionals",
+          "titleHref": "/en/portfolio-items/cuentas-bancarias/#profesionales",
+          "label": "Professionals",
+          "href": "/en/portfolio-items/cuentas-bancarias/#profesionales",
+          "icon": "user-graduate",
+          "external": false
+        },
+        {
+          "title": "Beneficiaries",
+          "titleHref": "/en/portfolio-items/cuentas-bancarias/#beneficiarios",
+          "label": "Beneficiary",
+          "href": "/en/portfolio-items/cuentas-bancarias/#beneficiarios",
+          "icon": "user-group",
+          "external": false
+        },
+        {
+          "title": "Accounts for Minors",
+          "titleHref": "/en/portfolio-items/cuentas-bancarias/#menores",
+          "label": "Minors",
+          "href": "/en/portfolio-items/cuentas-bancarias/#menores",
+          "icon": "child",
+          "external": false
+        }
+      ]
+    },
+    {
+      "label": "Loans",
+      "href": "/en/portfolio-items/creditos/",
+      "button": false,
+      "modal": null,
+      "children": [
+        {
+          "title": "Credit Cards",
+          "titleHref": "/en/portfolio-items/creditos/#tdc",
+          "label": "Credit Cards",
+          "href": "/en/portfolio-items/creditos/#tdc",
+          "icon": "credit-card",
+          "external": false
+        },
+        {
+          "title": "Back to Back Loans",
+          "titleHref": "/en/portfolio-items/creditos/#personales",
+          "label": "Personal Loans",
+          "href": "/en/portfolio-items/creditos/#personales",
+          "icon": "handshake",
+          "external": false
+        },
+        {
+          "title": "Mortgage Loans",
+          "titleHref": "/en/portfolio-items/creditos/#hipotecarios",
+          "label": "Mortgage Loans",
+          "href": "/en/portfolio-items/creditos/#hipotecarios",
+          "icon": "house",
+          "external": false
+        }
+      ]
+    },
+    {
+      "label": "Bank Guarantees",
+      "href": "/en/portfolio-items/garantias-bancarias/",
+      "button": false,
+      "modal": null,
+      "children": [
+        {
+          "title": "Transaction Guarantee",
+          "titleHref": "/en/portfolio-items/garantias-bancarias/#inmuebles",
+          "label": "Property-Sale Guarantee",
+          "href": "/en/portfolio-items/garantias-bancarias/#inmuebles",
+          "icon": "file-signature",
+          "external": false
+        },
+        {
+          "title": "Bank Guarantees",
+          "titleHref": "/en/portfolio-items/garantias-bancarias/#garantias",
+          "label": "Bank Guarantees",
+          "href": "/en/portfolio-items/garantias-bancarias/#garantias",
+          "icon": "user-lock",
+          "external": false
+        }
+      ]
+    },
+    {
+      "label": "Business",
+      "href": "/en/portfolio-items/empresas/",
+      "button": false,
+      "modal": null,
+      "children": [
+        {
+          "title": "Business Accounts",
+          "titleHref": "/en/portfolio-items/empresas/#cuenta",
+          "label": "Business Accounts",
+          "href": "/en/portfolio-items/empresas/#cuenta",
+          "icon": "building-columns",
+          "external": false
+        },
+        {
+          "title": "Back to Back Loans",
+          "titleHref": "/en/portfolio-items/empresas/#credito",
+          "label": "Back-to-Back Loans",
+          "href": "/en/portfolio-items/empresas/#credito",
+          "icon": "rotate",
+          "external": false
+        }
+      ]
+    },
+    {
+      "label": "About Us",
+      "href": "/en/nosotros/",
+      "button": false,
+      "modal": null,
+      "children": [
+        {
+          "title": "FHT",
+          "titleHref": "/en/nosotros/#fht",
+          "label": "Florida Home Trust",
+          "href": "/en/nosotros/#fht",
+          "icon": "warehouse",
+          "external": false
+        },
+        {
+          "title": "Risk Rating",
+          "titleHref": "/en/nosotros/#calificacion",
+          "label": "Risk Rating",
+          "href": "/en/nosotros/#calificacion",
+          "icon": "medal",
+          "external": false
+        },
+        {
+          "title": "F.A.Q",
+          "titleHref": "/en/nosotros/#faq",
+          "label": "FAQs",
+          "href": "/en/nosotros/#faq",
+          "icon": "circle-question",
+          "external": false
+        },
+        {
+          "title": "Fees",
+          "titleHref": "/en/nosotros/#tarifas",
+          "label": "Contact Us",
+          "href": "#contacto",
+          "icon": "headset",
+          "external": false
+        },
+        {
+          "title": "",
+          "titleHref": null,
+          "label": "Partners",
+          "href": "https://facebank-asociados.com/es/asociados/login",
+          "icon": "handshake",
+          "external": true
+        }
+      ]
+    },
+    {
+      "label": "Online Banking",
+      "href": null,
+      "button": true,
+      "modal": null,
+      "children": [
+        {
+          "title": "Personal",
+          "titleHref": "https://secureib.facebank.pr/personas/banca-virtual#!/login",
+          "label": "Personal",
+          "href": "https://secureib.facebank.pr/personas/banca-virtual#!/login",
+          "icon": "user",
+          "external": true
+        },
+        {
+          "title": "Business",
+          "titleHref": "https://secureib.facebank.pr/empresas/banca-virtual#!/login",
+          "label": "Business",
+          "href": "https://secureib.facebank.pr/empresas/banca-virtual#!/login",
+          "icon": "building",
+          "external": true
+        }
+      ]
+    },
+    {
+      "label": "Open an Account",
+      "href": null,
+      "button": true,
+      "modal": "cuenta",
+      "children": []
+    }
+  ]
+}

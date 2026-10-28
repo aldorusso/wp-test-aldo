@@ -1,0 +1,271 @@
+/* Componentes: cabecera, menús, barra de título, plantillas, modales, pestañas,
+   acordeón, flip boxes, redes sociales, aviso de salida. Implementación propia. */
+
+/* ---------- Plantillas de página ---------- */
+.main { position: relative; background: var(--fb-white); }
+/* Como el original: nada desborda horizontalmente (filas a todo ancho, animaciones de entrada).
+   "clip" (no "hidden") para no romper el submenú fijo (position: sticky). */
+.main, .ftr { overflow-x: clip; }
+/* El padding vertical llega por página (--main-pt / --main-pb), como estaba configurado en WordPress. */
+.main { padding: var(--main-pt, 0px) 30px var(--main-pb, 60px); }
+.main--full .sec, .main--portfolio .sec, .ftr .sec { margin-inline: -30px; }
+.ftr { padding: 0 30px; }
+.main--default .main__row { max-width: var(--fb-site); margin: 0 auto; }
+/* En móvil (≤640px) el original deja 50px bajo el contenido, salvo en la plantilla de ancho completo. */
+@media (max-width: 640px) {
+  .main--default .main__row, .main--portfolio .main__row { margin-bottom: 50px; }
+}
+.main--default { --fb-gutter: 0px; }
+
+/* ---------- Barra de título ---------- */
+.ptb { display: flex; align-items: center; height: 120px; padding: 0 30px; background: var(--fb-title-bar); }
+.ptb__row { width: 100%; max-width: var(--fb-site); margin: 0 auto; }
+.ptb__title { margin: 0; color: var(--fb-navy); font-size: 24px; line-height: 70px; text-align: center; letter-spacing: -0.016em; }
+
+/* ---------- Cabecera ---------- */
+.hdr { position: sticky; top: 0; z-index: 1000; }
+.hdr__bar { background: var(--fb-teal); padding: 0 30px; }
+.hdr__row { position: relative; display: flex; align-items: center; justify-content: space-between; max-width: var(--fb-site); height: var(--fb-header-h); margin: 0 auto; }
+.hdr__logo { display: block; flex: none; margin: 10px 0; }
+.hdr__logo img { display: block; width: 171px; height: auto; max-height: 51px; border-radius: 0; }
+.hdr__toggle { display: none; }
+
+/* El mega menú se posiciona respecto a toda la fila de la cabecera (1260px), como en el original. */
+.nav { position: static; height: 100%; }
+.nav__list { display: flex; align-items: center; height: 100%; margin: 0; padding: 0; list-style: none; }
+.nav__item { position: static; display: flex; align-items: center; height: 100%; padding-left: 25px; }
+.nav__item:first-child { padding-left: 0; }
+.nav__link {
+  display: flex; align-items: center; height: 100%; padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--fb-white); font-family: var(--fb-font); font-size: 15px; font-weight: 700; line-height: 15px; letter-spacing: 0;
+}
+.nav__link:hover, .nav__item.is-current > .nav__link, .nav__item:hover > .nav__link { color: rgba(224, 236, 240, 0.8); }
+.nav__caret { width: 10px; height: 11px; margin-left: 9px; fill: currentColor; } /* 10px como en el sitio en vivo */
+.nav__item--btn > .nav__link .nav__text {
+  display: flex; align-items: center; height: 32px; padding: 9px 20px; border-radius: 32px;
+  background: var(--fb-yellow); color: #00577b; font-size: 12px; font-weight: 600; line-height: 14px; transition: background 0.3s, color 0.3s;
+}
+.nav__item--btn:hover > .nav__link .nav__text { background: rgba(232, 140, 0, 0.68); color: var(--fb-white); }
+.nav__item--lang .flag { display: block; width: 20px; height: 20px; margin: 0 5px; }
+.nav__item--search .nav__link { width: 14px; justify-content: center; }
+.nav__search-icon { width: 15px; height: 15px; fill: currentColor; }
+
+/* Mega menú */
+.mega {
+  position: absolute; top: 100%; left: 0; z-index: 10; width: 100%;
+  padding: 0 15px; visibility: hidden; opacity: 0; transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.nav__item--mega:hover > .mega, .nav__item--mega:focus-within > .mega, .nav__item--mega.is-open > .mega { visibility: visible; opacity: 1; }
+/* En las secciones que ya muestran su submenú en la página (Cuentas, Créditos, Garantías,
+   Empresas, Nosotros), la opción actual de la cabecera no despliega el mismo menú encima. */
+body:has(.sec--subnav) .nav__item--mega.is-current > .mega { display: none; }
+body:has(.sec--subnav) .nav__item--mega.is-current .nav__caret { display: none; }
+.mega__grid {
+  display: grid; grid-template-columns: repeat(var(--cols), 1fr); margin: 0 -15px; padding: 0; list-style: none;
+  background: rgba(0, 0, 0, 0.3); border-radius: 7px; box-shadow: 1px 1px 30px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(2px);
+}
+.mega__col { padding: 15px 34px 0; }
+.mega__link { display: flex; flex-direction: column; align-items: center; color: var(--fb-white); text-align: center; }
+.mega__link:hover { color: var(--fb-white); }
+.mega__icon { height: 32px; width: auto; margin-bottom: 16px; fill: currentColor; transition: transform 0.2s; }
+.mega__link:hover .mega__icon { transform: scale(1.06); }
+.mega__label { display: block; margin: 0 0 16px; font-size: 16px; line-height: 27.2px; }
+
+/* Búsqueda (superpuesta sobre el menú) */
+.search {
+  position: absolute; top: 0; bottom: 0; right: 0; left: 200px; z-index: 20; display: flex; align-items: center;
+  background: var(--fb-teal);
+}
+.search[hidden] { display: none; }
+.search__form { position: relative; flex: 1 1 auto; }
+.search__input {
+  width: 100%; height: 42px; padding: 0 45px 0 15px; border: 1px solid var(--fb-line); border-radius: 5px;
+  background: var(--fb-white); color: var(--fb-text); font: inherit; font-size: 16px;
+}
+.search__input:focus { outline: none; border-color: var(--fb-green); }
+.search__submit, .search__close { display: flex; align-items: center; justify-content: center; border: 0; background: none; cursor: pointer; }
+.search__submit { position: absolute; top: 0; right: 0; width: 42px; height: 42px; color: var(--fb-text); }
+.search__close { width: 42px; height: 42px; margin-left: 10px; color: var(--fb-white); }
+.search__submit svg, .search__close svg { width: 16px; height: 16px; fill: currentColor; }
+.search__results {
+  position: absolute; top: calc(50% + 26px); left: 0; right: 52px; max-height: 60vh; overflow: auto; margin: 0; padding: 0;
+  list-style: none; background: var(--fb-white); border: 1px solid var(--fb-line); border-radius: 5px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+.search__results a { display: block; padding: 10px 15px; border-bottom: 1px solid var(--fb-line); color: var(--fb-navy); font-size: 14px; line-height: 1.4; }
+.search__results a:hover { background: var(--fb-mist); }
+.search__results small { display: block; color: var(--fb-text); font-size: 12px; }
+.search__empty { padding: 10px 15px; font-size: 14px; }
+
+/* Menú móvil */
+.mnav { background: var(--fb-white); }
+.mnav[hidden] { display: none; }
+.mnav__list, .mnav__sub { margin: 0; padding: 0; list-style: none; }
+.mnav__item { position: relative; border-bottom: 1px solid var(--fb-line); }
+.mnav__link {
+  display: flex; align-items: center; height: 42px; padding: 0 12px 0 30px; color: #898989;
+  font-family: var(--fb-font-alt); font-size: 12px; font-weight: 400; line-height: 42px;
+}
+.mnav__item.is-current > .mnav__link { background: var(--fb-mist); color: var(--fb-green); }
+.mnav__link:hover { background: var(--fb-mist); color: var(--fb-green); }
+.mnav__link--sub { padding-left: 46px; border-top: 1px solid var(--fb-line); }
+.mnav__sub-toggle {
+  position: absolute; top: 0; right: 0; display: flex; align-items: center; justify-content: center;
+  width: 77px; height: 42px; border: 0; background: none; color: #898989; cursor: pointer;
+}
+.mnav__sub-toggle svg { width: 16px; height: 16px; fill: currentColor; transition: transform 0.2s; }
+.mnav__sub-toggle[aria-expanded='true'] svg { transform: rotate(180deg); }
+.mnav__item--lang { border-bottom: 0; }
+.mnav__item--lang .flag { width: 20px; height: 20px; }
+
+@media (max-width: 1200px) {
+  .hdr__bar { padding: 20px 30px; }
+  .hdr__row { height: 51px; }
+  .hdr__logo { margin: 0; }
+  .nav { display: none; }
+  .hdr__toggle {
+    display: flex; align-items: center; justify-content: center; width: 37px; height: 37px; margin-right: -10px;
+    padding: 0; border: 0; background: none; color: #6cb8b6; cursor: pointer;
+  }
+  .hdr__toggle svg { width: 18px; height: 21px; fill: currentColor; }
+}
+
+/* ---------- Pie ---------- */
+.ftr { background: var(--fb-white); }
+
+/* ---------- Redes sociales ---------- */
+/* El margen negativo compensa el de cada icono: el bloque mide lo que mide un icono, como en el original. */
+.social { display: flex; flex-wrap: wrap; justify-content: var(--align, center); margin: -10px; }
+.social__link { display: inline-flex; margin: 10px; color: var(--s-c, #000000); font-size: var(--s-fs, 18px); line-height: 1; transition: color 0.2s; }
+.social__link:hover { color: var(--s-c-h, rgba(0, 0, 0, 0.8)); }
+.social__svg { height: 1em; width: auto; fill: currentColor; }
+
+/* ---------- Modal ---------- */
+.modal {
+  width: min(900px, calc(100% - 20px)); max-width: none; max-height: calc(100% - 60px); margin: 30px auto; padding: 0;
+  border: 1px solid var(--m-bc, var(--fb-grey)); border-radius: 7px; background: var(--m-bg, var(--fb-white)); color: var(--fb-text);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+.modal--sm { width: min(600px, calc(100% - 20px)); }
+.modal::backdrop { background: rgba(0, 0, 0, 0.5); }
+.modal[open] { animation: fb-modal-in 0.3s ease-out; }
+@keyframes fb-modal-in { from { opacity: 0; transform: translateY(-25%); } to { opacity: 1; transform: none; } }
+.modal__header { padding: 15px 15px 15px 20px; border-bottom: 1px solid var(--m-bc, var(--fb-grey)); }
+.modal__close {
+  float: right; margin-top: -2px; padding: 0; border: 0; background: none; color: #000000; opacity: 0.2; cursor: pointer;
+  font-size: 21px; font-weight: 700; line-height: 1;
+}
+.modal__close:hover { opacity: 0.5; }
+.modal__title { margin: 0; font-size: 24px; line-height: 1.42; }
+.modal__body { padding: 20px; overflow: auto; }
+.modal__body::after { content: ''; display: table; clear: both; }
+.modal__body img.alignleft { float: left; margin: 0 25px 15px 0; }
+.modal__footer { padding: 15px 20px; border-top: 1px solid var(--m-bc, var(--fb-grey)); text-align: right; }
+html.has-modal { overflow: hidden; }
+
+/* ---------- Pestañas (medidas del original: columna ~41%, pestañas con borde y 10px de separación) ---------- */
+.tabs { --_bc: var(--t-bc, var(--fb-grey)); margin-bottom: 50px; }
+.tabs__nav { display: flex; }
+.tabs--vertical { display: flex; align-items: flex-start; }
+/* La columna se ajusta al título más largo (sin partir línea), como en el original. */
+.tabs--vertical .tabs__nav { flex-direction: column; flex: 0 0 auto; gap: 10px; }
+.tabs--vertical .tabs__tab { white-space: nowrap; }
+.tabs__panels { flex: 1 1 auto; min-width: 0; }
+.tabs__tab {
+  display: block; width: 100%; padding: 10px var(--t-pr, 35px) 10px var(--t-pl, 35px);
+  border: 1px solid var(--_bc); border-radius: var(--t-r, 0);
+  background: var(--t-inactive, var(--fb-mist)); color: var(--fb-blue); cursor: pointer; text-align: var(--t-align, left);
+  font-family: var(--fb-font); font-size: 16px; font-weight: 700; line-height: 1.42; letter-spacing: -0.016em; transition: background 0.2s;
+}
+.tabs__tab[aria-selected='true'], .tabs__tab:hover { background: var(--t-bg, var(--fb-white)); }
+/* Pestañas horizontales "clásicas" a todo el ancho (Servicios): medidas del original. */
+.tabs--horizontal .tabs__nav { gap: 1px; }
+.tabs--horizontal .tabs__tab { padding: 11px 0; border: 0; text-align: center; }
+.tabs--horizontal .tabs__label { justify-content: center; }
+.tabs--justified .tabs__nav .tabs__tab { flex: 1 1 0; }
+.tabs--horizontal.tabs--classic { border: var(--t-bw, 1px) solid var(--_bc); }
+.tabs--horizontal.tabs--classic .tabs__panel { border: 0; padding: 15px; background: var(--t-bg, var(--fb-white)); }
+.tabs__label { display: flex; align-items: center; }
+.tabs__panel { padding: 0 0 0 40px; }
+.tabs--horizontal .tabs__panel { padding: 30px 0 0; }
+.tabs--classic .tabs__panel { border: var(--t-bw, 1px) solid var(--_bc); padding: 30px; }
+.tabs__acc { display: none; }
+@media (max-width: 800px) {
+  .tabs, .tabs--vertical { display: block; }
+  .tabs__nav { display: none; }
+  /* Modo acordeón en móvil (medidas del original): cabeceras con borde, 10px entre ellas, 20px alrededor del panel. */
+  .tabs__panels { padding-top: 20px; }
+  .tabs__acc {
+    display: block; width: 100%; margin: 0 0 10px; padding: 14px 15px; border: 1px solid var(--_bc);
+    background: var(--t-inactive, var(--fb-mist)); color: var(--fb-blue); cursor: pointer; text-align: left;
+    font-family: var(--fb-font); font-size: 16px; font-weight: 700; line-height: 1.42; letter-spacing: -0.016em;
+  }
+  .tabs__acc[aria-expanded='true'] { background: var(--t-bg, var(--fb-white)); }
+  .tabs__panel, .tabs--horizontal .tabs__panel, .tabs--horizontal.tabs--classic .tabs__panel { margin: 20px 0; padding: 0; }
+}
+
+/* ---------- Acordeón (filas de 50px: título 21px/22px, caja de icono de 29px) ---------- */
+/* En el original varios acordeones se apilan sin separación entre ellos. */
+.acc { margin-bottom: 0; }
+.acc__panel--divider { border-bottom: 1px solid var(--a-divider-color, var(--fb-line)); }
+.acc__panel--divider:hover { border-color: var(--a-divider-hover-color, var(--fb-line)); }
+.acc__title { margin: 0; font-size: var(--a-title-font-size, 18px); line-height: 22px; }
+.acc__btn {
+  display: flex; align-items: baseline; width: 100%; padding: 10px 0; border: 0; background: none; cursor: pointer; text-align: left;
+  color: var(--a-title-color, var(--fb-navy)); font-family: var(--a-title-font-family, var(--fb-font));
+  font-size: inherit; font-weight: var(--a-title-font-weight, 700); font-style: var(--a-title-font-style, normal); line-height: 22px;
+}
+.acc__btn:hover { color: var(--a-toggle-hover-accent-color, var(--fb-teal)); }
+.acc__heading { flex: 1 1 auto; }
+.acc--icon-right .acc__btn { flex-direction: row-reverse; }
+.acc--icon-right .acc__heading { margin-right: 38px; }
+.acc:not(.acc--icon-right) .acc__heading { margin-left: 38px; }
+.acc__icon {
+  display: flex; align-items: center; justify-content: center; flex: none; width: 29px; height: 29px;
+  color: var(--a-icon-color, var(--fb-white)); font-size: var(--a-icon-size, 16px);
+}
+.acc--boxed .acc__icon { background: var(--a-icon-box-color, var(--fb-navy)); }
+.acc__btn:hover .acc__icon { color: var(--a-toggle-hover-accent-color, var(--fb-teal)); }
+.acc__icon svg { width: 0.7em; height: 0.7em; fill: currentColor; }
+.acc__minus { display: none; }
+.acc__btn[aria-expanded='true'] .acc__plus { display: none; }
+.acc__btn[aria-expanded='true'] .acc__minus { display: block; }
+.acc__content {
+  padding: 10px 0 15px; color: var(--a-content-color, var(--fb-text)); font-family: var(--a-content-font-family, inherit);
+  font-size: var(--a-content-font-size, 16px); font-weight: var(--a-content-font-weight, 400); font-style: var(--a-content-font-style, normal);
+}
+
+/* ---------- Flip boxes ---------- */
+/* 25px bajo el grupo + 15px bajo cada caja, como en el original */
+.flips { margin-bottom: 25px; }
+.flip__inner { margin-bottom: 15px; }
+.flip { perspective: 1000px; outline: none; }
+.flip__inner { position: relative; display: grid; transition: transform 0.4s ease; transform-style: preserve-3d; }
+.flip:hover .flip__inner, .flip:focus-visible .flip__inner { transform: rotateY(180deg); }
+.flip--left:hover .flip__inner, .flip--left:focus-visible .flip__inner { transform: rotateY(-180deg); }
+.flip--up:hover .flip__inner, .flip--up:focus-visible .flip__inner { transform: rotateX(180deg); }
+.flip--down:hover .flip__inner, .flip--down:focus-visible .flip__inner { transform: rotateX(-180deg); }
+.flip__front, .flip__back {
+  grid-area: 1 / 1; display: flex; align-items: center; justify-content: center; padding: 27px 20px;
+  border: 1px solid transparent; border-radius: 6px; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  min-height: var(--flip-h, 0px);
+}
+.flip__front { background: var(--f-bg, transparent); color: var(--f-c, inherit); }
+.flip__back { background: var(--b-bg, transparent); color: var(--b-c, inherit); transform: rotateY(180deg); }
+.flip--up .flip__back, .flip--down .flip__back { transform: rotateX(180deg); }
+.flip__front-in { width: 100%; text-align: center; }
+.flip__front-in img { display: inline; } /* en línea, como el original (añade el hueco bajo la imagen) */
+
+/* ---------- Aviso de salida ---------- */
+.leave {
+  width: min(600px, calc(100% - 40px)); max-width: none; padding: 0; border: 0; border-radius: 7px; background: var(--fb-white);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+.leave::backdrop { background: rgba(0, 0, 0, 0.7); }
+.leave__content { padding: 30px; text-align: center; }
+.leave__content h2 { margin: 0 0 20px; font-size: 24px; line-height: 1.3; }
+.leave__box { margin: 0 0 20px; padding: 15px; background: var(--fb-mist); border-radius: 5px; }
+.leave__link { margin-top: 5px; word-break: break-all; font-weight: 700; }
+.leave__cancel { font-weight: 700; }
+
+/* El desfase de anclas (165px) se aplica una sola vez, con scroll-padding-top en global.css. */

@@ -1,0 +1,152 @@
+---
+// Sección "Fondear cuenta": índice (sin method) o detalle de un método.
+import Page from '../../layouts/Page.astro';
+import '../../styles/fund.css';
+import { FUND_ICONS, FUND_SLUGS, LOGIN_URL, ARROW, base, getFund, type Lang } from '../../data/fundMeta';
+
+interface Props { lang: Lang; method?: string }
+const { lang, method } = Astro.props;
+const t = getFund(lang);
+const root = base(lang);
+const home = lang === 'en' ? '/en/' : '/';
+const support = `${home}#contacto`;
+const id = method ? Object.keys(FUND_SLUGS).find((k) => FUND_SLUGS[k] === method) : undefined;
+const o = id ? t.options.find((x) => x.id === id) : undefined;
+const others = o ? t.options.filter((x) => x.id !== o.id) : [];
+const count = t.optionsCount.replace('{count}', String(t.options.length));
+const title = o ? `${o.title} - Facebank` : `${t.eyebrow} - Facebank`;
+const description = o ? o.desc : t.lead;
+const route = o ? `${root}${method}/` : root;
+const canonical = `https://facebank.pr${route}`;
+const other: Lang = lang === 'en' ? 'es' : 'en';
+const alt = `https://facebank.pr${base(other)}${o ? `${method}/` : ''}`;
+const alternates = lang === 'es' ? { 'es-ES': canonical, 'en-US': alt } : { 'en-US': canonical, 'es-ES': alt };
+const heroImg = o ? '/img/fund/hero-2.jpg' : '/img/fund/hero-1.jpg';
+---
+<Page lang={lang} route={route} template="full" postType="page" titleBar={null} mainPad={['0px', '0px']}
+  title={title} description={description} canonical={canonical} ogTitle={title} ogDescription={description}
+  robots="index, follow" alternates={alternates}>
+  <div class="fund" style="margin-inline:-30px">
+    <section class:list={['fund-hero', { 'fund-hero--detail': o }]}>
+      <div class="container">
+        {o ? (
+          <nav class="fund-crumbs" aria-label={t.breadcrumbAria}>
+            <a href={home}>{t.home}</a><span>/</span>
+            <a href={root}>{t.eyebrow}</a><span>/</span>
+            <b>{o.title}</b>
+          </nav>
+        ) : null}
+        <div class="fund-hero__grid">
+          <div class="fund-hero__text">
+            {o ? (
+              <>
+                <div class="fund-hero__row">
+                  <span class="fund-hero__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={FUND_ICONS[o.id]} /></span>
+                  <h1 class="fund-hero__title">{o.title}</h1>
+                </div>
+                <p class="fund-hero__lead">{o.desc}</p>
+              </>
+            ) : (
+              <>
+                <span class="fund-pill"><i aria-hidden="true"></i>{t.eyebrow}</span>
+                <h1 class="fund-hero__title">{t.titlePre}<em>{t.titleHl}</em>.</h1>
+                <p class="fund-hero__lead">{t.lead}</p>
+              </>
+            )}
+          </div>
+          <div class="fund-hero__media">
+            <span class="fund-hero__ring" aria-hidden="true"></span>
+            <div class:list={['fund-hero__photo', { 'is-compact': o }]}>
+              <img src={heroImg} alt={o ? o.title : t.eyebrow} width="800" height="1000" fetchpriority="high" style={o ? undefined : 'object-position:72% 50%'} />
+            </div>
+            <div class="fund-hero__float" aria-hidden="true">
+              <span class="dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="txt"><b>{t.badgeTitle}</b><small>{t.badgeSub}</small></span>
+            </div>
+          </div>
+        </div>
+        {o && (
+          <dl class="fund-facts">
+            <div><dt>{t.time}</dt><dd>{o.time}</dd></div>
+            <div><dt>{t.cost}</dt><dd>{o.cost}</dd></div>
+            <div><dt>{t.best}</dt><dd>{o.best}</dd></div>
+          </dl>
+        )}
+      </div>
+    </section>
+
+    {o ? (
+      <>
+        <section class="fund-body">
+          <div class="container">
+            <div class="fund-body__grid">
+              <div>
+                <span class="fund-eyebrow">{t.stepsLabel}</span>
+                <ol class="fund-steps">
+                  {o.steps.map((s, i) => (
+                    <li>
+                      <span class="fund-steps__n">{i + 1}</span>
+                      <div><small>{t.stepWord} {i + 1}</small><p>{s}</p></div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <aside class="fund-aside">
+                <h2>{t.notesTitle}</h2>
+                <ul>{o.notes.map((n) => <li>{n}</li>)}</ul>
+                <a class="fund-btn fund-btn--primary" href={LOGIN_URL} target="_blank" rel="noopener noreferrer">{t.loginLabel}</a>
+                <p class="fund-aside__legal">{t.disclaimer}</p>
+              </aside>
+            </div>
+          </div>
+        </section>
+        <section class="fund-others">
+          <div class="container">
+            <div class="fund-options__head">
+              <h2>{t.otherTitle}</h2>
+              <a href={root} class="fund-link">{t.all} <svg width="15" height="15" viewBox="0 0 18 18" fill="none" aria-hidden="true" set:html={ARROW} /></a>
+            </div>
+            <div class="fund-others__grid">
+              {others.map((x) => (
+                <a href={`${root}${FUND_SLUGS[x.id]}/`} class="fund-mini">
+                  <span class="fund-mini__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={FUND_ICONS[x.id]} /></span>
+                  <span class="fund-mini__title">{x.title}</span>
+                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true" set:html={ARROW} />
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      </>
+    ) : (
+      <section class="fund-options">
+        <div class="container">
+          <div class="fund-options__head"><h2>{t.optionsTitle}</h2><span>{count}</span></div>
+          <div class="fund-bento">
+            {t.options.map((x, i) => (
+              <a href={`${root}${FUND_SLUGS[x.id]}/`} class={`fund-tile fund-tile--${x.id}${i === 0 ? ' is-featured' : ''}`}>
+                <span class="fund-tile__num">{String(i + 1).padStart(2, '0')}</span>
+                <span class="fund-tile__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={FUND_ICONS[x.id]} /></span>
+                <div class="fund-tile__text"><h3>{x.title}</h3><p>{x.short}</p></div>
+                <div class="fund-tile__foot">
+                  <span class="fund-chip">{x.time}</span>
+                  <span class="fund-tile__go" aria-label={t.viewOption}><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" set:html={ARROW} /></span>
+                </div>
+              </a>
+            ))}
+          </div>
+          <p class="fund-disclaimer">{t.disclaimer}</p>
+        </div>
+      </section>
+    )}
+
+    <section class="fund-cta">
+      <div class="container">
+        <div class="fund-cta__card">
+          <div><h2>{t.ctaTitle}</h2><p>{t.ctaBody}</p></div>
+          <a class="fund-btn fund-btn--light" href={support}>{t.ctaLabel}</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Page>

@@ -1,0 +1,12 @@
+---
+// Pie de página: el contenido de cada idioma se generó desde el sitio original
+// (src/components/generated/Footer*.astro) y puede editarse allí.
+import FooterEs from './generated/FooterEs.astro';
+import FooterEn from './generated/FooterEn.astro';
+
+interface Props { lang: 'es' | 'en' }
+const { lang } = Astro.props;
+---
+<footer class="ftr main--full">
+  {lang === 'en' ? <FooterEn /> : <FooterEs />}
+</footer>

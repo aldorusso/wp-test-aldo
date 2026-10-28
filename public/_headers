@@ -1,0 +1,14 @@
+# Cabeceras de seguridad (formato Cloudflare Pages / Netlify).
+# Mantiene la política del sitio original (no se puede incrustar en iframes de otros dominios)
+# y añade protecciones estándar. Revisar antes de añadir una Content-Security-Policy completa:
+# GTM, el chat de agentbot y accessiBe cargan scripts de terceros.
+/*
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: frame-ancestors 'self'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=31536000
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

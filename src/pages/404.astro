@@ -1,0 +1,80 @@
+---
+// Página 404. Un sitio estático sirve un único 404.html, así que el idioma se decide en el
+// navegador según la URL (/en/...). Textos y enlaces como en el 404 del sitio original.
+import Page from '../layouts/Page.astro';
+import Icon from '../components/Icon.astro';
+import menus from '../data/menu.json';
+
+const t = {
+  es: { title: '¡No hemos podido encontrar esa página!', links: 'Enlaces útiles', search: 'Busque en nuestra web',
+        hint: '¿No encuentra lo que necesita? ¡Inténtelo con una nueva búsqueda!', label: 'Buscar:', placeholder: 'Buscar...' },
+  en: { title: 'Oops, This Page Could Not Be Found!', links: 'Helpful Links', search: 'Search Our Website',
+        hint: "Can't find what you need? Take a moment and do a search below!", label: 'Search for:', placeholder: 'Search...' },
+};
+const page = {
+  lang: 'es' as const, route: '/404/', template: 'default' as const, postType: 'page', titleBar: null,
+  mainPad: ['60px', '60px'] as [string, string], title: 'Página no encontrada - Facebank', robots: 'noindex, follow',
+};
+---
+<Page {...page}>
+  {(['es', 'en'] as const).map((lang) => (
+    <div class="e404" data-lang-block={lang} hidden={lang === 'en'}>
+      <h2 class="e404__title">{t[lang].title}</h2>
+      <div class="e404__cols">
+        <div class="e404__big">404</div>
+        <div>
+          <h3>{t[lang].links}</h3>
+          <ul class="e404__links">
+            {menus[lang].map((item) => (
+              <li>
+                <Icon name="chevron-down" class="e404__arrow" />
+                {item.modal ? <a href="#" data-modal={item.modal}>{item.label}</a> : <a href={item.href ?? (lang === 'en' ? '/en/' : '/')}>{item.label}</a>}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>{t[lang].search}</h3>
+          <p>{t[lang].hint}</p>
+          <form class="e404__search" role="search" data-e404-search>
+            <label class="visually-hidden" for={`e404-s-${lang}`}>{t[lang].label}</label>
+            <input id={`e404-s-${lang}`} type="search" placeholder={t[lang].placeholder} required />
+            <button type="submit" aria-label={t[lang].label}><Icon name="magnifying-glass" /></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  ))}
+</Page>
+
+<script>
+  // Idioma según la URL pedida.
+  if (location.pathname.startsWith('/en/')) {
+    document.documentElement.lang = 'en-US';
+    document.title = 'Page not found - Facebank';
+    document.querySelectorAll<HTMLElement>('[data-lang-block]').forEach((b) => { b.hidden = b.dataset.langBlock !== 'en'; });
+  }
+  // La búsqueda del 404 reutiliza la del menú principal.
+  document.querySelectorAll<HTMLFormElement>('[data-e404-search]').forEach((f) => f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = f.querySelector('input')!.value;
+    document.querySelector<HTMLButtonElement>('[data-search-open]')?.click();
+    const input = document.querySelector<HTMLInputElement>('[data-search-input]');
+    if (input) { input.value = q; input.dispatchEvent(new Event('input')); }
+  }));
+</script>
+
+<style>
+  .e404__title { margin: 0 0 40px; font-size: 38px; }
+  .e404__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+  .e404__big { color: var(--fb-line); font-size: 165px; font-weight: 700; line-height: 1; text-align: center; }
+  .e404__cols h3 { margin: 0 0 20px; font-size: 24px; }
+  .e404__links { margin: 0; padding: 0; list-style: none; }
+  .e404__links li { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .e404__arrow { width: 10px; height: 10px; fill: var(--fb-teal); transform: rotate(-90deg); }
+  .e404__search { position: relative; }
+  .e404__search input { width: 100%; height: 50px; padding: 0 50px 0 15px; border: 1px solid var(--fb-line); border-radius: 5px; font: inherit; }
+  .e404__search button { position: absolute; top: 0; right: 0; width: 50px; height: 50px; border: 0; background: none; color: var(--fb-text); cursor: pointer; }
+  .e404__search button :global(svg) { width: 16px; height: 16px; fill: currentColor; }
+  @media (max-width: 800px) { .e404__cols { grid-template-columns: 1fr; } }
+</style>

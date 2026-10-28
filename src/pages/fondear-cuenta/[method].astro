@@ -1,0 +1,6 @@
+---
+import FundView from '../../components/fund/FundView.astro';
+import { FUND_SLUGS } from '../../data/fundMeta';
+export const getStaticPaths = () => Object.values(FUND_SLUGS).map((method) => ({ params: { method } }));
+---
+<FundView lang="es" method={Astro.params.method} />

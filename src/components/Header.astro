@@ -1,0 +1,115 @@
+---
+// Cabecera: logo, mega menú (escritorio), menú móvil, idioma y búsqueda.
+import menus from '../data/menu.json';
+import Icon from './Icon.astro';
+import Flag from './Flag.astro';
+
+interface Props { lang: 'es' | 'en'; route: string; altUrl: string }
+const { lang, route, altUrl } = Astro.props;
+const items = menus[lang];
+const home = lang === 'en' ? '/en/' : '/';
+const t = lang === 'en'
+  ? { nav: 'Main Menu', mobile: 'Main Menu Mobile', toggle: 'Toggle Navigation', search: 'Search', placeholder: 'Search...', close: 'Close Search', other: 'Español', submenu: 'Open submenu' }
+  : { nav: 'Menú principal', mobile: 'Menú principal móvil', toggle: 'Alternar navegación', search: 'Buscar', placeholder: 'Buscar...', close: 'Cerrar búsqueda', other: 'English', submenu: 'Abrir submenú' };
+const isCurrent = (href: string | null) => !!href && href.split('#')[0] === route;
+---
+<header class="hdr" data-header>
+  <div class="hdr__bar">
+    <div class="hdr__row">
+      <a class="hdr__logo" href={home}>
+        <img
+          src="/wp-content/uploads/2021/01/facebank-logo-diapo-menu.png"
+          srcset="/wp-content/uploads/2021/01/facebank-logo-diapo-menu.png 1x, /wp-content/uploads/2021/01/facebank-logo-diapo-menu-retina.png 2x"
+          width="171" height="51" alt="Facebank Logo" />
+      </a>
+
+      <nav class="nav" aria-label={t.nav}>
+        <ul class="nav__list">
+          {items.map((item) => (
+            <li class:list={['nav__item', { 'nav__item--mega': item.children.length, 'nav__item--btn': item.button, 'is-current': isCurrent(item.href) }]}>
+              {item.modal ? (
+                <a class="nav__link" href="#" data-modal={item.modal}><span class="nav__text">{item.label}</span></a>
+              ) : item.href ? (
+                <a class="nav__link" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                  <span class="nav__text">{item.label}</span>
+                  {item.children.length > 0 && !item.button && <Icon name="chevron-down" class="nav__caret" />}
+                </a>
+              ) : (
+                <button class="nav__link" type="button" aria-haspopup="true"><span class="nav__text">{item.label}</span></button>
+              )}
+              {item.children.length > 0 && (
+                <div class="mega">
+                  <ul class="mega__grid" style={`--cols:${item.children.length}`}>
+                    {item.children.map((c) => (
+                      <li class="mega__col">
+                        <a class="mega__link" href={c.href ?? c.titleHref ?? '#'}>
+                          {c.icon && <Icon name={c.icon} class="mega__icon" />}
+                          <span class="mega__label">{c.label}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </li>
+          ))}
+          <li class="nav__item nav__item--lang">
+            <a class="nav__link" href={altUrl} hreflang={lang === 'es' ? 'en-US' : 'es-ES'} lang={lang === 'es' ? 'en' : 'es'} aria-label={t.other} title={t.other}>
+              <Flag lang={lang === 'es' ? 'en' : 'es'} />
+            </a>
+          </li>
+          <li class="nav__item nav__item--search">
+            <button class="nav__link" type="button" aria-label={t.search} data-search-open aria-controls="site-search" aria-expanded="false">
+              <Icon name="magnifying-glass" class="nav__search-icon" />
+            </button>
+          </li>
+        </ul>
+
+        <div class="search" id="site-search" hidden data-search>
+          <form class="search__form" role="search" action={home} data-search-form>
+            <label class="visually-hidden" for={`search-${lang}`}>{t.search}</label>
+            <input class="search__input" id={`search-${lang}`} type="search" name="s" placeholder={t.placeholder} autocomplete="off" required data-search-input />
+            <button class="search__submit" type="submit" aria-label={t.search}><Icon name="magnifying-glass" /></button>
+          </form>
+          <button class="search__close" type="button" aria-label={t.close} data-search-close><Icon name="xmark" /></button>
+          <ul class="search__results" data-search-results data-lang={lang} hidden></ul>
+        </div>
+      </nav>
+
+      <button class="hdr__toggle" type="button" aria-label={t.toggle} aria-expanded="false" aria-controls="mobile-nav" data-mnav-toggle>
+        <Icon name="bars" />
+      </button>
+    </div>
+  </div>
+
+  <nav class="mnav" id="mobile-nav" aria-label={t.mobile} hidden data-mnav>
+    <ul class="mnav__list">
+      {items.map((item, i) => (
+        <li class:list={['mnav__item', { 'is-current': isCurrent(item.href) }]}>
+          {item.modal ? (
+            <a class="mnav__link" href="#" data-modal={item.modal}>{item.label}</a>
+          ) : (
+            <a class="mnav__link" href={item.href ?? '#'} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+          )}
+          {item.children.some((c) => c.title) && (
+            <>
+              <button class="mnav__sub-toggle" type="button" aria-expanded="false" aria-controls={`mnav-sub-${i}`} aria-label={`${t.submenu}: ${item.label}`}>
+                <Icon name="chevron-down" />
+              </button>
+              <ul class="mnav__sub" id={`mnav-sub-${i}`} hidden>
+                {item.children.filter((c) => c.title).map((c) => (
+                  <li><a class="mnav__link mnav__link--sub" href={c.titleHref ?? c.href ?? '#'}>{c.title}</a></li>
+                ))}
+              </ul>
+            </>
+          )}
+        </li>
+      ))}
+      <li class="mnav__item mnav__item--lang">
+        <a class="mnav__link" href={altUrl} hreflang={lang === 'es' ? 'en-US' : 'es-ES'} lang={lang === 'es' ? 'en' : 'es'} aria-label={t.other}>
+          <Flag lang={lang === 'es' ? 'en' : 'es'} />
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>

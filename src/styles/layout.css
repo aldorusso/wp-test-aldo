@@ -1,0 +1,199 @@
+/* Sistema de maquetación propio: sección → fila → columna.
+   Breakpoints medidos en el sitio original: tablet ≤1200px, móvil ≤640px.
+   Las variables "públicas" de cada elemento no se heredan (inherits:false), así
+   una columna anidada nunca toma por error los valores de su columna padre. */
+
+@property --pt { syntax: '*'; inherits: false; }
+@property --pr { syntax: '*'; inherits: false; }
+@property --pb { syntax: '*'; inherits: false; }
+@property --pl { syntax: '*'; inherits: false; }
+@property --pt-md { syntax: '*'; inherits: false; }
+@property --pr-md { syntax: '*'; inherits: false; }
+@property --pb-md { syntax: '*'; inherits: false; }
+@property --pl-md { syntax: '*'; inherits: false; }
+@property --pt-sm { syntax: '*'; inherits: false; }
+@property --pr-sm { syntax: '*'; inherits: false; }
+@property --pb-sm { syntax: '*'; inherits: false; }
+@property --pl-sm { syntax: '*'; inherits: false; }
+@property --mt { syntax: '*'; inherits: false; }
+@property --mb { syntax: '*'; inherits: false; }
+@property --ml { syntax: '*'; inherits: false; }
+@property --mr { syntax: '*'; inherits: false; }
+@property --mt-md { syntax: '*'; inherits: false; }
+@property --mb-md { syntax: '*'; inherits: false; }
+@property --mt-sm { syntax: '*'; inherits: false; }
+@property --mb-sm { syntax: '*'; inherits: false; }
+@property --ml-sm { syntax: '*'; inherits: false; }
+@property --mr-sm { syntax: '*'; inherits: false; }
+@property --bg { syntax: '*'; inherits: false; }
+@property --bgi { syntax: '*'; inherits: false; }
+@property --bgp { syntax: '*'; inherits: false; }
+@property --bgs { syntax: '*'; inherits: false; }
+@property --w { syntax: '*'; inherits: false; }
+@property --w-md { syntax: '*'; inherits: false; }
+@property --w-sm { syntax: '*'; inherits: false; }
+@property --sl { syntax: '*'; inherits: false; }
+@property --sr { syntax: '*'; inherits: false; }
+@property --sl-md { syntax: '*'; inherits: false; }
+@property --sr-md { syntax: '*'; inherits: false; }
+@property --sl-sm { syntax: '*'; inherits: false; }
+@property --sr-sm { syntax: '*'; inherits: false; }
+@property --o-md { syntax: '*'; inherits: false; }
+@property --o-sm { syntax: '*'; inherits: false; }
+@property --p-t { syntax: '*'; inherits: false; }
+@property --p-r { syntax: '*'; inherits: false; }
+@property --p-b { syntax: '*'; inherits: false; }
+@property --p-l { syntax: '*'; inherits: false; }
+@property --p-t-md { syntax: '*'; inherits: false; }
+@property --p-r-md { syntax: '*'; inherits: false; }
+@property --p-b-md { syntax: '*'; inherits: false; }
+@property --p-l-md { syntax: '*'; inherits: false; }
+@property --p-t-sm { syntax: '*'; inherits: false; }
+@property --p-r-sm { syntax: '*'; inherits: false; }
+@property --p-b-sm { syntax: '*'; inherits: false; }
+@property --p-l-sm { syntax: '*'; inherits: false; }
+@property --row-max { syntax: '*'; inherits: false; }
+@property --row-gap { syntax: '*'; inherits: false; }
+@property --row-w { syntax: '*'; inherits: false; }
+
+/* ---------- Sección ---------- */
+.sec {
+  --_pt: var(--pt, 0px); --_pr: var(--pr, var(--fb-gutter)); --_pb: var(--pb, 0px); --_pl: var(--pl, var(--fb-gutter));
+  --_mt: var(--mt, 0px); --_mb: var(--mb, 0px);
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: var(--_pt) var(--_pr) var(--_pb) var(--_pl);
+  margin: var(--_mt) 0 var(--_mb);
+  background-color: var(--bg, transparent);
+  background-image: var(--bgi, none);
+  background-position: var(--bgp, center center);
+  background-size: var(--bgs, cover);
+  background-repeat: no-repeat;
+  border-top: var(--bt, 0px) solid var(--fb-line);
+  border-radius: var(--r-top-left, 0) var(--r-top-right, 0) var(--r-bottom-right, 0) var(--r-bottom-left, 0);
+}
+.sec--fixed { background-attachment: fixed; }
+/* Contenedor a todo el ancho (hero de la portada): la fila ocupa exactamente el ancho de la
+   ventana, sin desbordar (antes generaba scroll horizontal). */
+.sec--full > .row { width: 100%; max-width: none; margin-inline: 0; }
+/* El hero llega a ambos bordes y sin esquinas redondeadas en todos los tamaños. */
+.sec--full .col { --_sl: 0px; --_sr: 0px; }
+.sec--full .img__frame { display: block; max-width: none; border-radius: 0 !important; }
+.sec--full .img__frame img { width: 100%; border-radius: 0; }
+/* Contenedor "100% de alto": pantalla menos la cabecera (71px escritorio, 91px desde 1200px);
+   a 1000px o menos toma la altura de su contenido, como en el original. */
+.sec--h100 { --_hdr: 71px; min-height: calc(100vh - var(--_hdr)); align-items: center; }
+@media (max-width: 1200px) { .sec--h100 { --_hdr: 91px; } }
+@media (max-width: 1000px) { .sec--h100 { min-height: 0; } }
+.sec--subnav { position: sticky; top: var(--fb-header-h); z-index: 50; }
+.sec[style*='--link'] a { color: var(--link); }
+.sec[style*='--link-h'] a:hover { color: var(--link-h); }
+
+/* ---------- Fila ---------- */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: calc(100% + var(--row-gap, 0%));
+  max-width: var(--row-max, none);
+  margin-inline: calc(var(--row-gap, 0%) / -2);
+}
+.row--inner { width: var(--row-w, calc(100% + var(--row-gap, 0%))); max-width: none; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-stretch { align-items: stretch; }
+.justify-center { justify-content: center; }
+.justify-space-evenly { justify-content: space-evenly; }
+.content-space-evenly { align-content: space-evenly; }
+
+/* ---------- Columna ---------- */
+.col {
+  --_w: var(--w, 100%);
+  --_sl: var(--sl, 1.92%); --_sr: var(--sr, 1.92%);
+  --_mt: var(--mt, 0px); --_mb: var(--mb, 20px);
+  --_o: 0;
+  --_pt: var(--p-t, 0px); --_pr: var(--p-r, 0px); --_pb: var(--p-b, 0px); --_pl: var(--p-l, 0px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  width: var(--_w);
+  min-height: 1px;
+  margin: var(--_mt) 0 var(--_mb);
+  order: var(--_o);
+}
+.col__in {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1 1 auto;
+  min-height: 1px;
+  margin-inline: var(--_sl) var(--_sr);
+  padding: var(--_pt) var(--_pr) var(--_pb) var(--_pl);
+  background-color: var(--cbg, transparent);
+  background-image: var(--cbgi, none);
+  background-size: var(--cbgs, cover);
+  background-position: var(--cbgp, center center);
+  background-repeat: no-repeat;
+  border-style: var(--cbs, solid);
+  border-color: var(--cbc, transparent);
+  border-width: var(--cbw-t, 0) var(--cbw-r, 0) var(--cbw-b, 0) var(--cbw-l, 0);
+  border-radius: var(--cr, 0);
+  box-shadow: var(--csh, none);
+  overflow: var(--cov, visible);
+  transition: background-color 0.3s ease;
+}
+.col__in:hover { background-color: var(--cbg-h, var(--cbg, transparent)); }
+.col__in > * { flex-shrink: 0; }
+.col__in--row { flex-direction: row; flex-wrap: wrap; }
+.col__in.jc-center { justify-content: center; }
+.col__in.jc-space-around { justify-content: space-around; }
+.col__in.jc-space-between { justify-content: space-between; }
+.col__in.jc-end { justify-content: flex-end; }
+.col__in.ai-center { align-items: center; }
+.col__ratio { width: 100%; }
+.self-center { align-self: center; }
+.self-start { align-self: flex-start; }
+.self-stretch { align-self: stretch; }
+
+/* ---------- Tablet (≤1200px) ---------- */
+@media (max-width: 1200px) {
+  .sec {
+    --_pt: var(--pt-md, var(--pt, 0px)); --_pr: var(--pr-md, var(--pr, var(--fb-gutter)));
+    --_pb: var(--pb-md, var(--pb, 0px)); --_pl: var(--pl-md, var(--pl, var(--fb-gutter)));
+    --_mt: var(--mt-md, var(--mt, 0px)); --_mb: var(--mb-md, var(--mb, 0px));
+  }
+  .col {
+    --_w: var(--w-md, var(--w, 100%));
+    --_sl: var(--sl-md, var(--sl, 1.92%)); --_sr: var(--sr-md, var(--sr, 1.92%));
+    --_mt: var(--mt-md, var(--mt, 0px)); --_mb: var(--mb-md, var(--mb, 20px));
+    --_o: var(--o-md, 0);
+    --_pt: var(--p-t-md, var(--p-t, 0px)); --_pr: var(--p-r-md, var(--p-r, 0px));
+    --_pb: var(--p-b-md, var(--p-b, 0px)); --_pl: var(--p-l-md, var(--p-l, 0px));
+  }
+  .sec--fixed { background-attachment: scroll; }
+}
+
+/* ---------- Móvil (≤640px) ---------- */
+@media (max-width: 640px) {
+  .sec {
+    --_pt: var(--pt-sm, var(--pt-md, var(--pt, 0px))); --_pr: var(--pr-sm, var(--pr-md, var(--pr, var(--fb-gutter))));
+    --_pb: var(--pb-sm, var(--pb-md, var(--pb, 0px))); --_pl: var(--pl-sm, var(--pl-md, var(--pl, var(--fb-gutter))));
+    --_mt: var(--mt-sm, var(--mt-md, var(--mt, 0px))); --_mb: var(--mb-sm, var(--mb-md, var(--mb, 0px)));
+  }
+  .col {
+    --_w: var(--w-sm, 100%);
+    --_sl: var(--sl-sm, 1.92%); --_sr: var(--sr-sm, 1.92%);
+    /* En móvil, sin valor propio se hereda el de tablet y, si no, el de escritorio. */
+    --_mt: var(--mt-sm, var(--mt-md, var(--mt, 0px))); --_mb: var(--mb-sm, var(--mb-md, var(--mb, 20px)));
+    --_o: var(--o-sm, 0);
+    --_pt: var(--p-t-sm, var(--p-t-md, var(--p-t, 0px))); --_pr: var(--p-r-sm, var(--p-r-md, var(--p-r, 0px)));
+    --_pb: var(--p-b-sm, var(--p-b-md, var(--p-b, 0px))); --_pl: var(--p-l-sm, var(--p-l-md, var(--p-l, 0px)));
+  }
+}
+/* Visibilidad por dispositivo (rangos exclusivos) */
+@media (min-width: 1201px) { .hide-lg { display: none !important; } }
+@media (min-width: 641px) and (max-width: 1200px) { .hide-md { display: none !important; } }
+@media (max-width: 640px) { .hide-sm { display: none !important; } }

@@ -1,0 +1,20 @@
+---
+// Aviso al salir hacia un sitio externo (equivalente al del sitio original).
+// Los textos se conservan tal cual estaban publicados en cada idioma.
+interface Props { lang: 'es' | 'en' }
+const { lang } = Astro.props;
+const t = lang === 'en'
+  ? { redirect: 'You will be redirected to', click: 'Click on the link or' }
+  : { redirect: 'Usted sera redirigido a', click: 'Haga click en el siguiente link o' };
+---
+<dialog class="leave" data-leave aria-labelledby="leave-title">
+  <div class="leave__content">
+    <h2 id="leave-title">Usted esta saliendo de la pagina de FACEBANK</h2>
+    <p>Está saliendo de FACEBANK.COM y entrando en un sitio web que FACEBANK no controla. FACEBANK ha proporcionado este enlace para su conveniencia, pero no respalda ni es responsable del contenido, los enlaces, la política de privacidad o la política de seguridad de este sitio web.</p>
+    <div class="leave__box">
+      {t.redirect}
+      <div class="leave__link"><a href="#" data-leave-link rel="noopener"></a></div>
+    </div>
+    <p>{t.click} <a href="#" class="leave__cancel" data-leave-cancel>CANCELE</a></p>
+  </div>
+</dialog>

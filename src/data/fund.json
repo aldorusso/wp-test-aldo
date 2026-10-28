@@ -1,0 +1,396 @@
+{
+  "es": {
+    "eyebrow": "Fondear la cuenta",
+    "titlePre": "Pon dinero en tu cuenta, ",
+    "titleHl": "como más te convenga",
+    "lead": "Elige una opción para ver cómo funciona: tiempos, costos y los pasos para fondear tu cuenta FACEBANK en dólares.",
+    "optionsEyebrow": "Opciones disponibles",
+    "optionsTitle": "Elige cómo quieres fondear.",
+    "time": "Tiempo",
+    "cost": "Costo",
+    "best": "Ideal para",
+    "stepsTitle": "Paso a paso",
+    "notesTitle": "Ten en cuenta",
+    "ctaTitle": "¿Necesitas ayuda para fondear tu cuenta?",
+    "ctaBody": "Nuestro equipo de soporte te acompaña en cada paso.",
+    "ctaLabel": "Hablar con soporte",
+    "loginLabel": "Ingresar a mi cuenta",
+    "disclaimer": "Los tiempos, límites y cargos pueden variar según el método, el banco emisor y las políticas vigentes. Consulta tu banca en línea para ver la información actualizada de tu cuenta.",
+    "options": [
+      {
+        "id": "cash",
+        "title": "Efectivo en EE.UU.",
+        "short": "Deposita efectivo en más de 55.000 ubicaciones.",
+        "time": "Por lo general, 15 minutos",
+        "cost": "Cargo minorista de hasta $4.95",
+        "best": "Quien recibe o maneja efectivo",
+        "desc": "Lleva tu efectivo a una de las más de 55.000 ubicaciones participantes en EE.UU. y acredítalo en tu cuenta.",
+        "steps": [
+          "Ubica una tienda participante cerca de ti.",
+          "Indica en caja que quieres agregar dinero a tu cuenta FACEBANK y entrega el efectivo.",
+          "Conserva el recibo como comprobante.",
+          "Verifica el saldo en tu app: por lo general estará disponible en unos 15 minutos."
+        ],
+        "notes": [
+          "Pueden aplicarse límites y cargos por servicio minorista de hasta $4.95.",
+          "Servicio prestado por Green Dot."
+        ]
+      },
+      {
+        "id": "ach",
+        "title": "Transferencia ACH",
+        "short": "Desde tu cuenta en otro banco de EE.UU.",
+        "time": "Días hábiles",
+        "cost": "Transferencias ACH gratuitas",
+        "best": "Montos regulares y sin urgencia",
+        "desc": "Mueve dinero desde tu banco actual hacia tu cuenta FACEBANK usando la red ACH.",
+        "steps": [
+          "Entra a la banca en línea de tu otro banco y agrega una nueva transferencia.",
+          "Ingresa los datos de tu cuenta FACEBANK (los encuentras en tu app o banca en línea).",
+          "Indica el monto y confirma la operación.",
+          "Sigue el estado de la transferencia desde tu cuenta."
+        ],
+        "notes": [
+          "El tiempo de acreditación depende del banco emisor y su hora de corte."
+        ]
+      },
+      {
+        "id": "wire",
+        "title": "Transferencia Wire",
+        "short": "Para montos mayores o internacionales.",
+        "time": "Según banco emisor y hora de corte",
+        "cost": "Según el tarifario vigente",
+        "best": "Montos altos o envíos desde el exterior",
+        "desc": "Recibe fondos de forma directa por Wire, incluso desde otros países.",
+        "steps": [
+          "Solicita a tu banco una transferencia Wire a tu cuenta FACEBANK.",
+          "Proporciona los datos de recepción de tu cuenta (disponibles en tu app o banca en línea).",
+          "Confirma el monto y la moneda: USD.",
+          "Te reflejamos el abono en cuanto se reciba."
+        ],
+        "notes": [
+          "Tu banco emisor puede cobrar una comisión por el envío.",
+          "Para transferencias internacionales pueden requerirse datos adicionales como SWIFT/BIC."
+        ]
+      },
+      {
+        "id": "remesas",
+        "title": "Remesas desde México",
+        "short": "Envía efectivo desde México a tu cuenta.",
+        "time": "Consulta con el operador",
+        "cost": "Consulta con el operador",
+        "best": "Familias con envíos desde México",
+        "desc": "Recibe dinero enviado desde México y acredítalo directamente en tu cuenta en dólares.",
+        "steps": [
+          "Quien envía elige un servicio de remesas compatible.",
+          "Se registran los datos de tu cuenta FACEBANK como destino.",
+          "Se confirma el envío y recibes el aviso del abono.",
+          "Consulta el saldo en tu app."
+        ],
+        "notes": [
+          "Los costos y tiempos los define el operador de remesas elegido."
+        ]
+      },
+      {
+        "id": "check",
+        "title": "Cheque móvil",
+        "short": "Deposita cheques con una foto desde la app.",
+        "time": "1 a 2 días hábiles",
+        "cost": "Consulta tu tarifario",
+        "best": "Cheques de nómina o pagos de clientes",
+        "desc": "Fotografía tu cheque desde la app y deposítalo sin ir a una sucursal.",
+        "steps": [
+          "En la app ve a Depósitos > Cheque móvil.",
+          "Endosa el cheque con «Para depósito móvil FACEBANK».",
+          "Toma fotos del frente y del reverso.",
+          "Ingresa el monto y confirma."
+        ],
+        "notes": [
+          "Se aplican límites de depósito móvil.",
+          "Conserva el cheque original unos días, por si se solicita."
+        ]
+      },
+      {
+        "id": "paypal",
+        "title": "PayPal",
+        "short": "Transfiere tu saldo de PayPal a tu cuenta.",
+        "time": "Según PayPal",
+        "cost": "Según las tarifas de PayPal",
+        "best": "Quien cobra o recibe pagos en PayPal",
+        "desc": "Mueve el saldo de tu cuenta PayPal hacia tu cuenta FACEBANK en dólares.",
+        "steps": [
+          "Entra a tu cuenta PayPal y ve a Billetera.",
+          "Agrega tu cuenta FACEBANK como cuenta bancaria con tus datos de cuenta (los encuentras en tu app o banca en línea).",
+          "Confirma la cuenta siguiendo los pasos que indique PayPal.",
+          "Elige Transferir dinero, selecciona tu cuenta FACEBANK e indica el monto."
+        ],
+        "notes": [
+          "Los tiempos, límites y comisiones los define PayPal.",
+          "PayPal puede pedirte verificar la cuenta antes de la primera transferencia."
+        ]
+      },
+      {
+        "id": "wise",
+        "title": "Wise",
+        "short": "Recibe el saldo de Wise en tu cuenta.",
+        "time": "Según Wise",
+        "cost": "Según las tarifas de Wise",
+        "best": "Quien envía o recibe dinero entre países",
+        "desc": "Envía el saldo de Wise a tu cuenta FACEBANK en dólares con una transferencia bancaria.",
+        "steps": [
+          "Entra a Wise y elige Enviar.",
+          "Selecciona USD como moneda e indica el monto.",
+          "Agrega tu cuenta FACEBANK como destinatario con tus datos de cuenta.",
+          "Revisa el costo y el tiempo estimado que muestra Wise y confirma."
+        ],
+        "notes": [
+          "Wise te muestra el costo y el tiempo estimado antes de confirmar.",
+          "Las tarifas y los tiempos los define Wise."
+        ]
+      },
+      {
+        "id": "pagotronic",
+        "title": "Pagotronic",
+        "short": "Fondea tu cuenta a través de Pagotronic.",
+        "time": "Consulta con Pagotronic",
+        "cost": "Consulta con Pagotronic",
+        "best": "Quien ya usa Pagotronic",
+        "desc": "Agrega fondos a tu cuenta FACEBANK usando el servicio de Pagotronic.",
+        "steps": [
+          "Ingresa a tu cuenta o punto de servicio de Pagotronic.",
+          "Elige la opción para fondear una cuenta FACEBANK.",
+          "Ingresa los datos de tu cuenta FACEBANK y el monto.",
+          "Confirma y guarda tu comprobante."
+        ],
+        "notes": [
+          "Los costos, límites y tiempos los define Pagotronic.",
+          "Verifica los datos de tu cuenta antes de confirmar."
+        ]
+      },
+      {
+        "id": "internal",
+        "title": "Entre cuentas FACEBANK",
+        "short": "Recibe dinero de otro cliente FACEBANK.",
+        "time": "Inmediato, 24/7",
+        "cost": "Sin costo",
+        "best": "Pagos entre personas o empresas FACEBANK",
+        "desc": "Si alguien tiene cuenta FACEBANK, puede enviarte dinero al instante, a cualquier hora.",
+        "steps": [
+          "Comparte con quien te envía tus datos de cuenta FACEBANK.",
+          "La persona hace la transferencia desde su banca en línea.",
+          "El saldo se refleja de inmediato en tu cuenta."
+        ],
+        "notes": [
+          "Verifica los datos antes de compartirlos."
+        ]
+      }
+    ],
+    "all": "Todas las opciones",
+    "otherTitle": "Otras formas de fondear",
+    "breadcrumbAria": "Migas de pan",
+    "home": "Inicio",
+    "viewOption": "Ver cómo funciona",
+    "stepsLabel": "Paso a paso",
+    "stepWord": "Paso",
+    "optionsCount": "{count} formas de fondear",
+    "badgeTitle": "Cuenta en dólares",
+    "badgeSub": "Respaldo en EE.UU."
+  },
+  "en": {
+    "eyebrow": "Fund your account",
+    "titlePre": "Add money to your account, ",
+    "titleHl": "however suits you best",
+    "lead": "Pick an option to see how it works: timing, costs and the steps to fund your FACEBANK dollar account.",
+    "optionsEyebrow": "Available options",
+    "optionsTitle": "Choose how you want to fund.",
+    "time": "Timing",
+    "cost": "Cost",
+    "best": "Best for",
+    "stepsTitle": "Step by step",
+    "notesTitle": "Keep in mind",
+    "ctaTitle": "Need help funding your account?",
+    "ctaBody": "Our support team is with you every step of the way.",
+    "ctaLabel": "Talk to support",
+    "loginLabel": "Log in to my account",
+    "disclaimer": "Timing, limits and fees may vary by method, sending bank and current policies. Check your online banking for up-to-date information on your account.",
+    "options": [
+      {
+        "id": "cash",
+        "title": "Cash in the U.S.",
+        "short": "Deposit cash at 55,000+ locations.",
+        "time": "Usually 15 minutes",
+        "cost": "Retail service fee of up to $4.95",
+        "best": "Anyone who receives or handles cash",
+        "desc": "Take your cash to one of the 55,000+ participating U.S. locations and add it to your account.",
+        "steps": [
+          "Find a participating store near you.",
+          "Tell the cashier you want to add money to your FACEBANK account and hand over the cash.",
+          "Keep the receipt as proof of your transaction.",
+          "Check your balance in the app: funds are usually available in about 15 minutes."
+        ],
+        "notes": [
+          "Limits and retail service fees of up to $4.95 may apply.",
+          "Service provided by Green Dot."
+        ]
+      },
+      {
+        "id": "ach",
+        "title": "ACH transfer",
+        "short": "From your account at another U.S. bank.",
+        "time": "Business days",
+        "cost": "Free ACH transfers",
+        "best": "Regular amounts that aren't urgent",
+        "desc": "Move money from your current bank into your FACEBANK account over the ACH network.",
+        "steps": [
+          "Log in to your other bank's online banking and add a new transfer.",
+          "Enter your FACEBANK account details (you'll find them in your app or online banking).",
+          "Enter the amount and confirm.",
+          "Track the transfer status from your account."
+        ],
+        "notes": [
+          "Posting time depends on the sending bank and its cut-off time."
+        ]
+      },
+      {
+        "id": "wire",
+        "title": "Wire transfer",
+        "short": "For larger or international amounts.",
+        "time": "Depends on sending bank and cut-off time",
+        "cost": "Per current fee schedule",
+        "best": "Large amounts or funds from abroad",
+        "desc": "Receive funds directly by wire, including from other countries.",
+        "steps": [
+          "Ask your bank to send a wire to your FACEBANK account.",
+          "Provide your account's receiving details (available in your app or online banking).",
+          "Confirm the amount and currency: USD.",
+          "We'll post the credit as soon as the funds arrive."
+        ],
+        "notes": [
+          "Your sending bank may charge a fee.",
+          "International wires may require additional details such as SWIFT/BIC."
+        ]
+      },
+      {
+        "id": "remesas",
+        "title": "Remittances from Mexico",
+        "short": "Send cash from Mexico to your account.",
+        "time": "Check with the provider",
+        "cost": "Check with the provider",
+        "best": "Families receiving money from Mexico",
+        "desc": "Receive money sent from Mexico and have it credited straight to your dollar account.",
+        "steps": [
+          "The sender picks a compatible remittance service.",
+          "Your FACEBANK account details are entered as the destination.",
+          "The transfer is confirmed and you get a deposit notice.",
+          "Check your balance in the app."
+        ],
+        "notes": [
+          "Fees and timing are set by the remittance provider you choose."
+        ]
+      },
+      {
+        "id": "check",
+        "title": "Mobile check deposit",
+        "short": "Deposit checks with a photo from the app.",
+        "time": "1 to 2 business days",
+        "cost": "Check your fee schedule",
+        "best": "Payroll or customer checks",
+        "desc": "Photograph your check in the app and deposit it without visiting a branch.",
+        "steps": [
+          "In the app go to Deposits > Mobile Check.",
+          "Endorse the check with “For mobile deposit FACEBANK”.",
+          "Take photos of the front and back.",
+          "Enter the amount and confirm."
+        ],
+        "notes": [
+          "Mobile deposit limits apply.",
+          "Keep the original check for a few days in case it's requested."
+        ]
+      },
+      {
+        "id": "paypal",
+        "title": "PayPal",
+        "short": "Transfer your PayPal balance to your account.",
+        "time": "Per PayPal",
+        "cost": "Per PayPal's fees",
+        "best": "Anyone who gets paid through PayPal",
+        "desc": "Move your PayPal balance into your FACEBANK dollar account.",
+        "steps": [
+          "Log in to PayPal and go to Wallet.",
+          "Add your FACEBANK account as a bank account using your account details (you'll find them in your app or online banking).",
+          "Confirm the account by following PayPal's steps.",
+          "Choose Transfer money, select your FACEBANK account and enter the amount."
+        ],
+        "notes": [
+          "Timing, limits and fees are set by PayPal.",
+          "PayPal may ask you to verify the account before your first transfer."
+        ]
+      },
+      {
+        "id": "wise",
+        "title": "Wise",
+        "short": "Receive your Wise balance in your account.",
+        "time": "Per Wise",
+        "cost": "Per Wise's fees",
+        "best": "Anyone sending or receiving money across borders",
+        "desc": "Send your Wise balance to your FACEBANK dollar account with a bank transfer.",
+        "steps": [
+          "Log in to Wise and choose Send.",
+          "Select USD as the currency and enter the amount.",
+          "Add your FACEBANK account as the recipient using your account details.",
+          "Review the cost and estimated time Wise shows and confirm."
+        ],
+        "notes": [
+          "Wise shows the cost and estimated time before you confirm.",
+          "Fees and timing are set by Wise."
+        ]
+      },
+      {
+        "id": "pagotronic",
+        "title": "Pagotronic",
+        "short": "Fund your account through Pagotronic.",
+        "time": "Check with Pagotronic",
+        "cost": "Check with Pagotronic",
+        "best": "Anyone who already uses Pagotronic",
+        "desc": "Add funds to your FACEBANK account using the Pagotronic service.",
+        "steps": [
+          "Log in to your Pagotronic account or visit a service point.",
+          "Choose the option to fund a FACEBANK account.",
+          "Enter your FACEBANK account details and the amount.",
+          "Confirm and keep your receipt."
+        ],
+        "notes": [
+          "Costs, limits and timing are set by Pagotronic.",
+          "Double-check your account details before confirming."
+        ]
+      },
+      {
+        "id": "internal",
+        "title": "Between FACEBANK accounts",
+        "short": "Receive money from another FACEBANK customer.",
+        "time": "Instant, 24/7",
+        "cost": "No cost",
+        "best": "Payments between FACEBANK people or businesses",
+        "desc": "If someone has a FACEBANK account, they can send you money instantly, any time.",
+        "steps": [
+          "Share your FACEBANK account details with the sender.",
+          "They make the transfer from their online banking.",
+          "The balance shows up in your account right away."
+        ],
+        "notes": [
+          "Double-check the details before sharing them."
+        ]
+      }
+    ],
+    "all": "All options",
+    "otherTitle": "Other ways to fund",
+    "breadcrumbAria": "Breadcrumb",
+    "home": "Home",
+    "viewOption": "See how it works",
+    "stepsLabel": "Step by step",
+    "stepWord": "Step",
+    "optionsCount": "{count} ways to fund",
+    "badgeTitle": "Dollar account",
+    "badgeSub": "Backed in the U.S."
+  }
+}
