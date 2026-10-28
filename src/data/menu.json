@@ -48,6 +48,13 @@
       ]
     },
     {
+      "label": "Fondear",
+      "href": "/fondear-cuenta/",
+      "button": false,
+      "modal": null,
+      "children": []
+    },
+    {
       "label": "Créditos",
       "href": "/portfolio-items/creditos/",
       "button": false,
@@ -254,6 +261,13 @@
           "external": false
         }
       ]
+    },
+    {
+      "label": "Fund",
+      "href": "/en/fondear-cuenta/",
+      "button": false,
+      "modal": null,
+      "children": []
     },
     {
       "label": "Loans",

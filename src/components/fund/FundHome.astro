@@ -1,0 +1,42 @@
+---
+// Bloque de la portada que lleva a "Fondear cuenta".
+import { FUND_ICONS, FUND_SLUGS, ARROW, base, getFund, type Lang } from '../../data/fundMeta';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = getFund(lang);
+const root = base(lang);
+const ids = ['cash', 'ach', 'wire', 'check', 'paypal', 'wise'];
+const items = ids.map((id) => t.options.find((o) => o.id === id)!);
+const copy = lang === 'en'
+  ? { title: 'Fund your account', lead: 'Add money to your dollar account however suits you best. Pick an option and see the steps.', cta: 'See all options' }
+  : { title: 'Fondea tu cuenta', lead: 'Pon dinero en tu cuenta en dólares como más te convenga. Elige una opción y mira los pasos.', cta: 'Ver todas las opciones' };
+---
+<section class="fh" id="fondear">
+  <div class="fh__in">
+    <div class="fh__media">
+      <img src="/img/fund/hero-1.jpg" alt={copy.title} width="800" height="1000" loading="lazy" decoding="async" />
+      <div class="fh__badge" aria-hidden="true">
+        <span class="fh__dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span><b>{t.badgeTitle}</b><small>{t.badgeSub}</small></span>
+      </div>
+    </div>
+    <div class="fh__text">
+      <span class="fh__pill">{t.eyebrow}</span>
+      <h2 class="fh__title">{copy.title}</h2>
+      <p class="fh__lead">{copy.lead}</p>
+      <ul class="fh__grid">
+        {items.map((o) => (
+          <li>
+            <a href={`${root}${FUND_SLUGS[o.id]}/`} class="fh__card">
+              <span class="fh__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={FUND_ICONS[o.id]} /></span>
+              <span class="fh__name">{o.title}</span>
+              <svg class="fh__go" width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true" set:html={ARROW} />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a class="fh__cta" href={root}>{copy.cta}<svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true" set:html={ARROW} /></a>
+    </div>
+  </div>
+</section>
